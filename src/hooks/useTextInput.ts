@@ -259,7 +259,8 @@ export function useTextInput({
       return cursor.insert('\n')
     }
     // Apple Terminal doesn't support custom Shift+Enter keybindings,
-    // so we use native macOS modifier detection to check if Shift is held
+    // so we use native macOS modifier detection to check if Shift is held.
+    // isModifierPressed fails safe (returns false) if detection is unavailable.
     if (env.terminal === 'Apple_Terminal' && isModifierPressed('shift')) {
       return cursor.insert('\n')
     }
