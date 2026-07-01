@@ -76,6 +76,16 @@ export function isResultSuccessful(
       content.length > 0 &&
       content.every(block => 'type' in block && block.type === 'tool_result')
     ) {
+      // Check if any tool_result has an error indicator
+      const hasError = content.some(
+        block =>
+          'type' in block &&
+          block.type === 'tool_result' &&
+          ('is_error' in block ? block.is_error : false),
+      )
+      if (hasError) {
+        return false
+      }
       return true
     }
   }
